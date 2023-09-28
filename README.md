@@ -22,3 +22,12 @@ After running Docker Desktop install WSL2 addition (there will be a pop-up windo
 #### Run docker image with command:
 
 ```docker run --net=host --cap-add SYS_NICE -e DISPLAY=$DISPLAY -v /tmp/.X11-unix -it agrorob_driver```
+
+
+#### validation:
+After connecting to docker, run below command to verify packages are installed
+
+```ros2 pkg list ```
+
+
+
