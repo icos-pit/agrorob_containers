@@ -49,7 +49,6 @@ RUN apt-get update && \
     ros-humble-joint-trajectory-controller \
     libpoco-dev \
     libeigen3-dev \
-
     ament-cmake-clang-tidy \
     && rm -rf /var/lib/apt/lists/*
 
@@ -58,8 +57,8 @@ ENV XDG_RUNTIME_DIR=/run/user/"${USER_UID}"
 RUN mkdir -p ws/src
 WORKDIR /workspaces/ws/src
 
-RUN git clone https://github.com/icos-pit/agrorob_packages \
-    && cd agrorob_packages \
+RUN git clone https://github.com/icos-pit/panel_packages \
+    && cd panel_packages \
     && git submodule init \
     && git submodule update
 
