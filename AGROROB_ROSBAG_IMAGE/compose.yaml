@@ -1,0 +1,13 @@
+version: "3.3"
+services:
+  agrorob_emulator:
+    build: .
+    ports:
+      - "5000:5000"
+    network_mode: "host"
+  zenoh-bridge-dds:
+    image: "eclipse/zenoh-bridge-dds:latest"
+    build: 
+      args:
+        - m=peer
+    network_mode: "host"
