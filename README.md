@@ -1,6 +1,6 @@
-# Running ROS2 Agrorob driver on Docker 
+# Running Agrorob on Docker 
 
-## Installation:
+## agrorob_driver:
 
 #### Install Docker Desktop:
 
@@ -11,8 +11,6 @@ After running Docker Desktop install WSL2 addition (there will be a pop-up windo
 #### In a directory with DockerFile build a docker image:
 
 ```docker build -t agrorob_driver .```
-
-## Running:
 
 
 #### Allow for connections for GUI
@@ -30,4 +28,37 @@ After connecting to docker, run below command to verify packages are installed
 ```ros2 pkg list ```
 
 
+## agrorob_emulator 
 
+
+### Prerequisites
+
+Make sure you have Docker and Docker Compose installed on your machine. You can download them from the [official Docker website](https://www.docker.com/get-started).
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/icos-pit/agrorob_docker_image
+cd AGROROB_ROSBAG_IMAGE
+
+```
+
+### Build the Docker Image
+
+```bash
+docker compose build
+
+```
+
+### Run the Docker Container
+
+```bash
+docker compose up
+
+```
+### Customization
+
+Feel free to customize the Dockerfile and docker-compose.yml files to suit your project's specific requirements. Update the application code, configuration, or any other aspects as needed.
+
+### Stopping the Container
+To stop the Docker container, press Ctrl + C in the terminal where the container is running.
