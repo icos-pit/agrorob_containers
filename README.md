@@ -1,5 +1,5 @@
-# Running Agrorob on Docker 
-
+# Agrorob deployment using containers 
+![ICOS UC1 Alpha validation strategy](description.png)
 ## agrorob_driver:
 
 #### Install Docker Desktop:
