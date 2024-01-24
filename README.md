@@ -10,8 +10,8 @@ Make sure you have Docker and Docker Compose installed on your machine. You can 
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/icos-pit/agrorob_docker_image
-cd AGROROB_ROSBAG_IMAGE
+git clone https://github.com/icos-pit/agrorob_containers
+cd agrorob_emulator
 
 ```
 
@@ -28,13 +28,6 @@ docker compose build
 docker compose up
 
 ```
-### Customization
-
-Feel free to customize the Dockerfile and docker-compose.yml files to suit your project's specific requirements. Update the application code, configuration, or any other aspects as needed.
-
-### Stopping the Container
-To stop the Docker container, press Ctrl + C in the terminal where the container is running.
-
 
 ## Zenoh router:
 
@@ -46,12 +39,6 @@ To stop the Docker container, press Ctrl + C in the terminal where the container
 
 
 ## agrorob_driver:
-
-#### Install Docker Desktop:
-
-https://www.docker.com/products/docker-desktop/
-
-After running Docker Desktop install WSL2 addition (there will be a pop-up window).
 
 #### In a directory with DockerFile build a docker image:
 
