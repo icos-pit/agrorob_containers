@@ -1,33 +1,5 @@
 # Agrorob deployment using containers 
 ![ICOS UC1 Alpha validation strategy](description.png)
-## agrorob_driver:
-
-#### Install Docker Desktop:
-
-https://www.docker.com/products/docker-desktop/
-
-After running Docker Desktop install WSL2 addition (there will be a pop-up window).
-
-#### In a directory with DockerFile build a docker image:
-
-```docker build -t agrorob_driver .```
-
-
-#### Allow for connections for GUI
-
-```xhost +``` 
-
-#### Run docker image with command:
-
-```docker run --net=host --cap-add SYS_NICE -e DISPLAY=$DISPLAY -v /tmp/.X11-unix -it agrorob_driver```
-
-
-#### validation:
-After connecting to docker, run below command to verify packages are installed
-
-```ros2 pkg list ```
-
-
 ## agrorob_emulator 
 
 
@@ -62,3 +34,42 @@ Feel free to customize the Dockerfile and docker-compose.yml files to suit your 
 
 ### Stopping the Container
 To stop the Docker container, press Ctrl + C in the terminal where the container is running.
+
+
+## Zenoh router:
+
+[Instruction here](cloud_zenoh_router/README.md)
+
+## Robot Panel:
+
+[Instruction here]()
+
+
+## agrorob_driver:
+
+#### Install Docker Desktop:
+
+https://www.docker.com/products/docker-desktop/
+
+After running Docker Desktop install WSL2 addition (there will be a pop-up window).
+
+#### In a directory with DockerFile build a docker image:
+
+```docker build -t agrorob_driver .```
+
+
+#### Allow for connections for GUI
+
+```xhost +``` 
+
+#### Run docker image with command:
+
+```docker run --net=host --cap-add SYS_NICE -e DISPLAY=$DISPLAY -v /tmp/.X11-unix -it agrorob_driver```
+
+
+#### validation:
+After connecting to docker, run below command to verify packages are installed
+
+```ros2 pkg list ```
+
+
