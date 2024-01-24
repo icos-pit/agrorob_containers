@@ -3,7 +3,7 @@ For quick test with default configuration go to [Docker Image Build Up](#docker-
 
 - Zenoh REST port - default is **8000**
 - Zenoh TCP port - default is **7447**
-- Docker container name - **eclipse-zenoh-router_zenoh_1**
+- Docker container name - **cloud_zenoh_router_zenoh_1**
 
 
 
@@ -41,12 +41,12 @@ More information can be found at https://github.com/eclipse-zenoh/zenoh.
 To easily deploy a working Zenoh router with your own configuration, you may need to change it
 permissions for the `entrypoint.sh` file on the host machine. Simply run:
 ```bash
-chmod +x /entrypoint.sh
+chmod +x entrypoint.sh
 ```
 
 ### Image build up command:
 ```bash
-docker-compose -f compose.yml up --build
+docker-compose -f compose.yaml up --build
 ```
 
 ***
