@@ -1,0 +1,15 @@
+version: "3.3"
+services:
+  zenoh:
+    image: eclipse/zenoh
+    restart: always
+    ports:
+      - 8447:7447 # port re-map
+      - 8000:8000
+    volumes:
+      - ./data:/root/.zenoh
+      - ./router-config.json5:/etc/zenoh/router-config.json5
+      - ./entrypoint.sh:/entrypoint.sh:ro
+    environment:
+      - RUST_LOG=debug
+    entrypoint: /entrypoint.sh # Specify entrypoint file
