@@ -1,0 +1,7 @@
+version: "3.3"
+services:
+  agrorob_server:
+    build: .
+    network_mode: "host"
+    environment:
+      - ZENOH_URL=tcp/<ENTER_ZENOH_IP>:<ENTER_ZENOH_TCP_PORT>
