@@ -12,8 +12,8 @@ services:
         - m = peer
         - e = tcp/57.129.16.234:8447
     ports: 
-        7447:7447
-        8000:8000
+        - 7447:7447
+        - 8000:8000
 
     network_mode: "host"
     
