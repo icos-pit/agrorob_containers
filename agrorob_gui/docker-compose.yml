@@ -1,6 +1,9 @@
 version: "3.3"
 services:
   agrorob_server:
+    ports: 
+    - 7447:7447
+    - 8000:8000
     build: .
     network_mode: "host"
     environment:
