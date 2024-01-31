@@ -11,7 +11,7 @@ Make sure you have Docker and Docker Compose installed on your machine. You can 
 
 ```bash
 git clone https://github.com/icos-pit/agrorob_containers
-cd agrorob_emulator
+cd agrorob_containers/agrorob_emulator/
 
 ```
 
