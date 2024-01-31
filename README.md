@@ -18,7 +18,7 @@ cd agrorob_containers/agrorob_emulator/
 ### Build the Docker Image
 
 ```bash
-docker compose build
+docker compose build --no-cache
 
 ```
 
