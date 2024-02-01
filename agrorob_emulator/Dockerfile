@@ -4,7 +4,7 @@ WORKDIR /workspaces
 # install ros package
 
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    apt-get install -y --no-install-recommends \
     ros-humble-rtcm-msgs \
     ros-humble-nmea-msgs \
     # ros-humble-xacro \
@@ -48,16 +48,22 @@ WORKDIR /workspaces/ws
 RUN rosdep install --from-paths src -y --ignore-src
 RUN . /opt/ros/humble/setup.sh && colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release --symlink-install
 # RUN echo "source /workspaces/ws/install/setup.bash" >> ~/.bashrc
-RUN . /workspaces/ws/install/local_setup.bash
+# RUN . /workspaces/ws/install/local_setup.bash
 
 RUN git clone https://github.com/icos-pit/agrorob_server 
 
 RUN echo "source /workspaces/ws/install/setup.bash" >> ~/.bashrc
-RUN echo "source /workspaces/ws/install/local_setupsetup.bash" >> ~/.bashrc
 
-RUN . /workspaces/ws/install/local_setup.sh 
-RUN . /workspaces/ws/install/setup.sh
-RUN . /opt/ros/$ROS_DISTRO/setup.sh
-# # # play ros bag
+# RUN echo "source /workspaces/ws/install/local_setup.bash" >> ~/.bashrc
+# RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+# COPY r_entrypoint.sh /workspaces/ws/
+# RUN chmod +x r_entrypoint.sh
+# RUN . r_entrypoint.sh
+# RUN echo "bash /workspaces/ws/r_entrypoint.bash" >> ~/.bashrc
+# ADD r_entrypoint.sh /r_entrypoint.sh
+# RUN chmod +x /r_entrypoint.sh
+# ENTRYPOINT [ '/workspaces/ws/r_entrypoint.sh' ]
+# CMD [ "RUN" ]
 CMD ["ros2", "bag", "play", "agrorob_server/bags/rosbag2_2023_11_30-09_27_02/rosbag2_2023_11_30-09_27_02_0.db3","--loop"]
-
+# CMD ["ros2", "pkg", "list"]
+# ENTRYPOINT ["ros2", "bag", "play", "agrorob_server/bags/rosbag2_2023_11_30-09_27_02/rosbag2_2023_11_30-09_27_02_0.db3","--loop"]
