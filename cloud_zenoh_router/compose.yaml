@@ -1,6 +1,7 @@
 version: "3.3"
 services:
   zenoh:
+    container_name: zenoh_router
     image: eclipse/zenoh
     restart: always
     ports:
@@ -8,7 +9,7 @@ services:
       - 8000:8000
     volumes:
       - ./data:/root/.zenoh
-      - ./router-config.json5:/etc/zenoh/router-config.json5
+      - ./router.json5:/etc/zenoh/router.json5
       - ./entrypoint.sh:/entrypoint.sh:ro
     environment:
       - RUST_LOG=debug
