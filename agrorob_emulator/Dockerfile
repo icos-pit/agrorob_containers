@@ -54,16 +54,22 @@ RUN git clone https://github.com/icos-pit/agrorob_server
 
 RUN echo "source /workspaces/ws/install/setup.bash" >> ~/.bashrc
 
-# RUN echo "source /workspaces/ws/install/local_setup.bash" >> ~/.bashrc
+RUN echo 'source "/workspaces/ws/install/setup.bash" --' >> /ros_entrypoint.sh
+RUN echo 'exec "$@"' >> /ros_entrypoint.sh
+RUN echo 'source "/workspaces/ws/install/local_setup.bash" --' >> /ros_entrypoint.sh
+RUN echo 'exec "$@"' >> /ros_entrypoint.sh
+# RUN echo "ros2 bag play /workspaces/ws/agrorob_server/bags/rosbag2_2023_11_30-09_27_02/rosbag2_2023_11_30-09_27_02_0.db3 --loop" >> /ros_entrypoint.sh
+# RUN echo 'exec "$@"' >> /ros_entrypoint.sh
 # RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 # COPY r_entrypoint.sh /workspaces/ws/
 # RUN chmod +x r_entrypoint.sh
 # RUN . r_entrypoint.sh
 # RUN echo "bash /workspaces/ws/r_entrypoint.bash" >> ~/.bashrc
-# ADD r_entrypoint.sh /r_entrypoint.sh
+# COPY r_entrypoint.sh /r_entrypoint.sh
 # RUN chmod +x /r_entrypoint.sh
-# ENTRYPOINT [ '/workspaces/ws/r_entrypoint.sh' ]
+# ENTRYPOINT [ "/workspaces/ws/r_entrypoint.sh" ]
+# CMD ["/workspaces/ws/r_entrypoint.sh" ]
 # CMD [ "RUN" ]
-CMD ["ros2", "bag", "play", "agrorob_server/bags/rosbag2_2023_11_30-09_27_02/rosbag2_2023_11_30-09_27_02_0.db3","--loop"]
+# CMD ["ros2", "bag", "play", "agrorob_server/bags/rosbag2_2023_11_30-09_27_02/rosbag2_2023_11_30-09_27_02_0.db3","--loop"]
 # CMD ["ros2", "pkg", "list"]
 # ENTRYPOINT ["ros2", "bag", "play", "agrorob_server/bags/rosbag2_2023_11_30-09_27_02/rosbag2_2023_11_30-09_27_02_0.db3","--loop"]

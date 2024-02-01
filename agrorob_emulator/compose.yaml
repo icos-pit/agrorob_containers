@@ -5,9 +5,9 @@ services:
     # ports:
     #   - "5000:5000"
     network_mode: "host"
-    # volumes:
-    #   - ./r_entrypoint.sh:/r_entrypoint.sh:ro
-    # entrypoint: /r_entrypoint.sh 
+    volumes:
+      - ./r_entrypoint.sh:/r_entrypoint.sh:ro
+    entrypoint: /r_entrypoint.sh 
   zenoh-bridge-dds:
     image: "eclipse/zenoh-bridge-dds:main"
     ports: 
