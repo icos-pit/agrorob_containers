@@ -2,8 +2,6 @@ version: "3.3"
 services:
   agrorob_emulator:
     build: .
-    # ports:
-    #   - "5000:5000"
     network_mode: "host"
     volumes:
       - ./r_entrypoint.sh:/r_entrypoint.sh:ro
@@ -17,5 +15,6 @@ services:
       - ./data:/root/.zenoh-bridge-dds
       - ./entrypoint.sh:/entrypoint.sh:ro
     network_mode: "host"
-    
+    env_file:
+      - ./environment.env
     entrypoint: /entrypoint.sh 
