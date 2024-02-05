@@ -8,12 +8,13 @@
 Make sure you have Docker and Docker Compose installed on your machine. You can download them from the [official Docker website](https://www.docker.com/get-started).
 
 ### Clone the Repository
-
+you can clone the repo using this command 
 ```bash
 git clone https://github.com/icos-pit/agrorob_containers
 cd agrorob_containers/agrorob_emulator/
 
 ```
+it is possible to change the environment variables and add the router address in environment.env file 
 
 ### Build the Docker Image
 
@@ -24,8 +25,10 @@ docker compose build --no-cache
 
 ### Run the Docker Container
 
+-d helps you to run the Docker Container on background 
+
 ```bash
-docker compose up
+docker compose up -d 
 
 ```
 
