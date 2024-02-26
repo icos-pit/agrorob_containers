@@ -1,0 +1,148 @@
+# find repo at https://github.com/icos-pit/agrorob_containers/tree/main
+apiVersion: v1
+kind: Service
+metadata:
+  name: agrorob-gui-svc
+  labels:
+    service: agrorob-gui-svc
+spec:
+  selector:
+    app: agrorob-gui-dpl
+  ports:
+#remove or move to clusterIP
+  - port: 8000
+    nodePort: 30800
+    targetPort: 8000
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agrorob-gui-dpl
+  labels:
+    name: agrorob-gui-dpl
+spec:
+  selector:
+    matchLabels:
+      app: agrorob-gui
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: agrorob-gui
+    spec:
+      containers:
+      - name: agrorob-gui
+#modify here
+        image: arturjpsnc/agrorob_gui
+        imagePullPolicy: Always
+        env:
+        - name: ZENOH_URL
+          value: "tcp/agrorob-zenoh-bridge-svc:7447"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agrorob-emulator-dpl
+  labels:
+    name: agrorob-emulator-dpl
+spec:
+  selector:
+    matchLabels:
+      app: agrorob-emulator
+# For later use when node discovery is working
+#      feature.node.kubernetes.io/usb-<device label>.present: "<feature value>"
+#      add emulator here and move label, add bindmount
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: agrorob-emulator
+    spec:
+      containers:
+      - name: agrorob-emulator
+#modify here
+        image: arturjpsnc/agrorob_emulator
+        imagePullPolicy: Always
+        env:
+        - name: ZENOH_URL
+          value: "tcp/agrorob-zenoh-bridge-svc:7447"
+        command: ["/r_entrypoint.sh"]
+        volumeMounts:
+        - mountPath: /r_entrypoint.sh
+          name: agrorob-emu-entrypoint-cfgmap
+          subPath: agrorob-emu-entrypoint-cfgmap
+      volumes:
+      - name: agrorob-emu-entrypoint-cfgmap
+        configMap:
+          name: agrorob-emu-entrypoint
+          defaultMode: 0555
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: agrorob-emu-entrypoint
+data:
+  agrorob-emu-entrypoint-cfgmap: |
+    #!/bin/bash
+    set -e
+
+    # setup ros2 environment
+    source "/opt/ros/$ROS_DISTRO/setup.bash" --
+    exec "$@"
+    source "/workspaces/ws/install/setup.bash" --
+    exec "$@"
+    source "/workspaces/ws/install/local_setup.bash" --
+    exec "$@"
+
+    ros2 bag play agrorob_server/bags/rosbag2_2023_11_30-09_27_02/rosbag2_2023_11_30-09_27_02_0.db3 --loop 
+    exec "$@"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: agrorob-zenoh-bridge-svc
+  labels:
+    service: agrorob-zenoh-bridge-svc
+spec:
+  selector:
+    app: agrorob-zenoh-bridge-dpl
+  ports:
+# How is this accessed? does it really have to be exposed?
+# gui is hybrid in flutter, web and mobile, needs access to zenoh router/bridge
+# 8000 needed for gui
+  - port: 8000
+    nodePort: 30080
+    targetPort: 8000
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agrorob-zenoh-bridge-dpl
+  labels:
+    name: agrorob-zenoh-bridge-dpl
+spec:
+  selector:
+    matchLabels:
+      app: agrorob-zenoh-bridge
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: agrorob-zenoh-bridge
+    spec:
+      containers:
+      - name: agrorob-zenoh-bridge
+        image: "eclipse/zenoh-bridge-dds:main"
+        imagePullPolicy: Always
+        volumeMounts:
+        - mountPath: /root/.zenoh-bridge-dds
+          name: zenoh-bridge-data
+        env:
+        - name: ZENOH_ROUTER_TCP_ADDR
+          value: "tcp/57.129.16.234:8447"
+      volumes:
+      - name: zenoh-bridge-data
+        emptyDir: {}
