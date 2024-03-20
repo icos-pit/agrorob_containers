@@ -49,10 +49,17 @@ or
 sudo chmod +x entrypoint.sh
 ```
 
-### Image build up:
+### Image build up (no TLS):
 ```bash
 docker-compose -f compose.yaml up --build
 ```
+
+### Image build up (TLS):
+```bash
+docker-compose -f compose_with_tls.yaml up --build
+```
+
+Default certificate and key location: `"/etc/cert/"`, can be changed in `compose_with_tls.yaml` file.
 
 ***
 ## Interact using HTTP Requests
