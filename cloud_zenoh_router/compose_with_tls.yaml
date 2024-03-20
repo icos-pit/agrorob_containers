@@ -9,7 +9,7 @@ services:
       - 8000:8000
     volumes:
       - ./data:/root/.zenoh
-      - ./router.json5:/etc/zenoh/router.json5
+      - ./router_with_tls.json5:/etc/zenoh/router.json5
       - ./entrypoint.sh:/entrypoint.sh:ro
       - /etc/cert/:/etc/zenoh/cert # cert and key location
     environment:
