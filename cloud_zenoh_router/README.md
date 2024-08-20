@@ -45,6 +45,8 @@ _Implemented changes_ -> zenoh/src/main.rs:126-129\*\*
 # dir
 cd zenoh_router/
 
+sudo chmod +x entrypoint.sh
+
 # compose
 docker compose up --build
 ```
