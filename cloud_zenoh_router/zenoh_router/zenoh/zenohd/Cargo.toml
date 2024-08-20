@@ -1,0 +1,68 @@
+#
+# Copyright (c) 2023 ZettaScale Technology
+#
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# http://www.eclipse.org/legal/epl-2.0, or the Apache License, Version 2.0
+# which is available at https://www.apache.org/licenses/LICENSE-2.0.
+#
+# SPDX-License-Identifier: EPL-2.0 OR Apache-2.0
+#
+# Contributors:
+#   ZettaScale Zenoh Team, <zenoh@zettascale.tech>
+#
+[package]
+rust-version = { workspace = true }
+name = "zenohd"
+version = { workspace = true }
+repository = { workspace = true }
+homepage = { workspace = true }
+authors = { workspace = true }
+edition = { workspace = true }
+license = { workspace = true }
+categories = { workspace = true }
+description = { workspace = true }
+readme = "README.md"
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[features]
+default = ["zenoh/default"]
+shared-memory = ["zenoh/shared-memory"]
+loki = ["tracing-loki","url"]
+
+[dependencies]
+tokio = { workspace = true, features = ["rt-multi-thread"] }
+clap = { workspace = true, features = ["derive"] }
+zenoh-util = {workspace = true }
+futures = { workspace = true }
+git-version = { workspace = true }
+json5 = { workspace = true }
+lazy_static = { workspace = true }
+tracing = {workspace = true}
+tracing-subscriber = {workspace = true}
+tracing-loki = {workspace = true, optional = true }
+url = {workspace = true, optional = true }
+zenoh = { workspace = true, features = ["unstable", "plugins"] }
+
+[dev-dependencies]
+rand = { workspace = true, features = ["default"] }
+
+[build-dependencies]
+rustc_version = { workspace = true }
+
+[package.metadata.deb]
+name = "zenohd"
+maintainer = "zenoh-dev@eclipse.org"
+copyright = "2024 ZettaScale Technology"
+section = "net"
+license-file = ["../LICENSE", "0"]
+depends = "$auto"
+maintainer-scripts = ".deb"
+assets = [
+  # binary
+  ["target/release/zenohd", "/usr/bin/", "755"],
+  # config
+  [".service/zenohd.json5", "/etc/zenohd/", "644"],
+  # service
+  [".service/zenohd.service", "/lib/systemd/system/zenohd.service", "644"],
+]

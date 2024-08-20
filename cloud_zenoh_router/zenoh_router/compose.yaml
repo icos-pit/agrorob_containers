@@ -1,0 +1,15 @@
+services:
+  zenoh:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8447:7447 # HOST: 8447 ZENOH: 7447
+      - 8000:8000 # REST
+    restart: always
+    volumes:
+      # - ./zenoh:/zenoh # zenoh dir
+      # - ./zenoh-plugin-ros2dds:/zenoh-plugin-ros2dds # zenoh ros2dds plugin dir
+      - ./config.json5:/zenoh/config.json5 # zenoh config file
+      - ./entrypoint.sh:/entrypoint.sh:ro # entrypoint
+    entrypoint: /entrypoint.sh
