@@ -1,0 +1,152 @@
+#
+# Copyright (c) 2023 ZettaScale Technology
+#
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# http://www.eclipse.org/legal/epl-2.0, or the Apache License, Version 2.0
+# which is available at https://www.apache.org/licenses/LICENSE-2.0.
+#
+# SPDX-License-Identifier: EPL-2.0 OR Apache-2.0
+#
+# Contributors:
+#   ZettaScale Zenoh Team, <zenoh@zettascale.tech>
+#
+[package]
+rust-version = { workspace = true }
+name = "zenoh-examples"
+version = { workspace = true }
+repository = { workspace = true }
+homepage = { workspace = true }
+authors = { workspace = true }
+edition = { workspace = true }
+license = { workspace = true }
+categories = { workspace = true }
+description = "Internal crate for zenoh."
+readme = "README.md"
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+publish = false
+
+[features]
+shared-memory = ["zenoh/shared-memory"]
+unstable = ["zenoh/unstable"]
+transport_unixpipe = ["zenoh/transport_unixpipe"]
+
+# Unfortunately, the feature "transport_unixpipe" is always
+# enabled for the lines below. It looks like a Cargo bug :(
+#
+# [target.'cfg(unix)'.dependencies]
+# zenoh = { workspace = true, features = ["transport_unixpipe"] }
+#
+# [target.'cfg(not(unix))'.dependencies]
+# zenoh = { workspace = true }
+
+[dependencies]
+tokio = { workspace = true, features = ["rt-multi-thread", "time", "io-std"] }
+clap = { workspace = true, features = ["derive"] }
+zenoh-util = {workspace = true }
+flume = { workspace = true }
+futures = { workspace = true }
+git-version = { workspace = true }
+json5 = { workspace = true }
+tracing = {workspace = true}
+zenoh = { workspace = true, default-features = true }
+zenoh-ext = { workspace = true }
+
+[dev-dependencies]
+rand = { workspace = true, features = ["default"] }
+
+[build-dependencies]
+rustc_version = { workspace = true }
+
+[[example]]
+name = "z_scout"
+path = "examples/z_scout.rs"
+
+[[example]]
+name = "z_info"
+path = "examples/z_info.rs"
+
+[[example]]
+name = "z_put"
+path = "examples/z_put.rs"
+
+[[example]]
+name = "z_put_float"
+path = "examples/z_put_float.rs"
+
+[[example]]
+name = "z_delete"
+path = "examples/z_delete.rs"
+
+[[example]]
+name = "z_formats"
+path = "examples/z_formats.rs"
+
+[[example]]
+name = "z_pub"
+path = "examples/z_pub.rs"
+
+[[example]]
+name = "z_pub_shm"
+path = "examples/z_pub_shm.rs"
+required-features = ["shared-memory"]
+
+[[example]]
+name = "z_sub"
+path = "examples/z_sub.rs"
+
+[[example]]
+name = "z_pull"
+path = "examples/z_pull.rs"
+
+[[example]]
+name = "z_queryable"
+path = "examples/z_queryable.rs"
+
+[[example]]
+name = "z_storage"
+path = "examples/z_storage.rs"
+
+[[example]]
+name = "z_get"
+path = "examples/z_get.rs"
+
+[[example]]
+name = "z_forward"
+path = "examples/z_forward.rs"
+
+[[example]]
+name = "z_liveliness"
+path = "examples/z_liveliness.rs"
+required-features = ["unstable"]
+
+[[example]]
+name = "z_sub_liveliness"
+path = "examples/z_sub_liveliness.rs"
+required-features = ["unstable"]
+
+[[example]]
+name = "z_get_liveliness"
+path = "examples/z_get_liveliness.rs"
+required-features = ["unstable"]
+
+[[example]]
+name = "z_pub_thr"
+path = "examples/z_pub_thr.rs"
+
+[[example]]
+name = "z_sub_thr"
+path = "examples/z_sub_thr.rs"
+
+[[example]]
+name = "z_pub_shm_thr"
+path = "examples/z_pub_shm_thr.rs"
+required-features = ["shared-memory"]
+
+[[example]]
+name = "z_ping"
+path = "examples/z_ping.rs"
+
+[[example]]
+name = "z_pong"
+path = "examples/z_pong.rs"

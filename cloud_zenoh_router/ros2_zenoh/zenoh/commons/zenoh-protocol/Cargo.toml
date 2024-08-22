@@ -1,0 +1,53 @@
+#
+# Copyright (c) 2023 ZettaScale Technology
+#
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# http://www.eclipse.org/legal/epl-2.0, or the Apache License, Version 2.0
+# which is available at https://www.apache.org/licenses/LICENSE-2.0.
+#
+# SPDX-License-Identifier: EPL-2.0 OR Apache-2.0
+#
+# Contributors:
+#   ZettaScale Zenoh Team, <zenoh@zettascale.tech>
+#
+[package]
+rust-version = { workspace = true }
+name = "zenoh-protocol"
+version = { workspace = true }
+repository = { workspace = true }
+homepage = { workspace = true }
+authors = { workspace = true }
+edition = { workspace = true }
+license = { workspace = true }
+categories = { workspace = true }
+description = "Internal crate for zenoh."
+
+[features]
+default = ["std"]
+std = [
+    "rand?/std",
+    "rand?/std_rng",
+    "serde/std",
+    "uhlc/std",
+    "zenoh-keyexpr/std",
+    "zenoh-result/std",
+]
+test = ["rand", "zenoh-buffers/test"]
+shared-memory = ["std", "zenoh-buffers/shared-memory"]
+stats = []
+complete_n = []
+
+[dependencies]
+const_format = { workspace = true }
+rand = { workspace = true, features = ["alloc", "getrandom"], optional = true }
+serde = { workspace = true, features = ["alloc"] }
+uhlc = { workspace = true, default-features = false }
+zenoh-buffers = { workspace = true, default-features = false }
+zenoh-keyexpr = { workspace = true }
+zenoh-result = { workspace = true }
+
+# NOTE: May cause problems when testing no_std stuff. Check this tool: https://docs.rs/crate/cargo-no-dev-deps/0.1.0
+[dev-dependencies]
+lazy_static = { workspace = true }
+rand = { workspace = true, features = ["default"] }

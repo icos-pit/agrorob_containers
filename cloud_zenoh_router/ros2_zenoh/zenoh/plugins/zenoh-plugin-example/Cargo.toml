@@ -1,0 +1,47 @@
+#
+# Copyright (c) 2023 ZettaScale Technology
+#
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# http://www.eclipse.org/legal/epl-2.0, or the Apache License, Version 2.0
+# which is available at https://www.apache.org/licenses/LICENSE-2.0.
+#
+# SPDX-License-Identifier: EPL-2.0 OR Apache-2.0
+#
+# Contributors:
+#   ZettaScale Zenoh Team, <zenoh@zettascale.tech>
+#
+[package]
+rust-version = { workspace = true }
+name = "zenoh-plugin-example"
+version = { workspace = true }
+authors = { workspace = true }
+edition = { workspace = true }
+publish = false
+
+[features]
+default = ["dynamic_plugin", "zenoh/default", "zenoh/unstable", "zenoh/plugins"]
+dynamic_plugin = []
+
+[lib]
+# When auto-detecting the "example" plugin, `zenohd` will look for a dynamic library named "zenoh_plugin_example"
+# `zenohd` will expect the file to be named according to OS conventions:
+#   - libzenoh_plugin_example.so on linux
+#   - libzenoh_plugin_example.dylib on macOS
+#   - zenoh_plugin_example.dll on Windows
+name = "zenoh_plugin_example"
+# This crate type will make `cargo` output a dynamic library instead of a rust static library
+crate-type = ["cdylib"]
+
+[dependencies]
+async-std = { workspace = true, features = ["default"] }
+const_format = { workspace = true }
+zenoh-util = {workspace = true }
+futures = { workspace = true }
+git-version = { workspace = true }
+tracing = {workspace = true}
+serde_json = { workspace = true }
+zenoh = { workspace = true, features = ["unstable"] }
+zenoh-core = { workspace = true }
+zenoh-plugin-trait = { workspace = true }
+zenoh-result = { workspace = true }
