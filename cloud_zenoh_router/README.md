@@ -1,18 +1,14 @@
-# Zenoh: router
-
-Zenoh router unofficial built from source.
-
-```bash
-cd zenoh_router/
-```
+# Zenoh Router: unofficial build from source
 
 ## Issue/Bug
 
-[10.08.2024] Latest release of zenoh: `zenoh:1.0.0-alpha.5`. **Running** `zenohd` **with any configuration file** results in **error**.
+**[UPDATE][26.08.2024]** Latest release of zenoh: `zenoh:1.0.0-alpha.6` bug is still persistent.
+
+**[10.08.2024]** Latest release of zenoh: `zenoh:1.0.0-alpha.5`. **Running** `zenohd` **with any configuration file** results in **error**.
 
 **Command**: `zenohd -c DEFAULT_CONFIG.json5`
 
-**Error**:
+**Occuring Error**:
 
 ```bash
 INFO main ThreadId(01) zenohd: zenohd v1.0.0-alpha.5 built with rustc 1.75.0 (82e1608df 2023-12-21)
@@ -21,15 +17,13 @@ called Result::unwrap() on an Err value: JSON error: invalid type: string "", ex
 note: run with RUST_BACKTRACE=1 environment variable to display a backtrace
 ```
 
-**Issue:** https://github.com/eclipse-zenoh/zenoh/issues/1292
+**Reported issue:** https://github.com/eclipse-zenoh/zenoh/issues/1292
 
 ### Implemented changes
 
-**Suggested solution -> source:**
+**Suggested solution:** https://github.com/eclipse-zenoh/zenoh/compare/main...anhaabaete:zenoh:patch-1
 
-https://github.com/eclipse-zenoh/zenoh/compare/main...anhaabaete:zenoh:patch-1
-
-_Implemented changes_ -> zenoh/src/main.rs:126-129\*\*
+**Implemented changes:** `zenoh/src/main.rs:126-129\*\*`
 
 ```rust
 - Config::from_file(conf_file).
@@ -51,13 +45,11 @@ sudo chmod +x entrypoint.sh
 docker compose up --build
 ```
 
-# ROS2: zenoh router - ros2dds plugin
+# Zenoh Router with ros2dds plugin: ROS2:humble base image
 
 ```bash
 cd ros2_zenoh/
 ```
-
-# TEST: ROS2 communication through Zenoh
 
 <!-- # Eclipse Zenoh Router deployment using Docker tool and Docker Compose file
 

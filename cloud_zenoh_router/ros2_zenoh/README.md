@@ -1,6 +1,6 @@
 # ROS2 Env with Zenoh Router and ROS2 websocket bridge
 
-## Ports
+## Ports mapping
 
 - 7447-`8447` - Zenoh Router
 - `8000` - Zenoh REST
@@ -18,6 +18,12 @@ chmod +x entrypoint.sh
 docker compose up --build
 ```
 
-## Demo
+# Test Communication
 
-By default `ros2 run demo_nodes_cpp talker &` command is executed - ros2 demo talker.
+![test schmeatic](TEST.jpg)
+**VM** - ROS2 Env on VM with Zenoh Router running. Zenoh router plugins: ros2dds, rest.
+
+**agrorob_emulator** - Zenoh Bridge for ros2dds is required with router endpoint connection:
+`/zenoh-bridge-ros2dds -m $ZENOH_BRIDGE_MODE  -e $ZENOH_ROUTER_TCP_ADDR`
+
+**gui panel** - panel connected to VM with ROS2 websocket bridge.
