@@ -55,6 +55,19 @@ RUN apt-get update && apt-get install -y \
     ros-humble-rosbridge-server \
     && rm -rf /var/lib/apt/lists/*
 
+# ROS2 
+RUN mkdir -p ws/src
+WORKDIR /workspaces/ws/src
+
+COPY ./agrorob_msgs-main /workspaces/ws/src/agrorob_packages/agrorob_msgs-main
+COPY ./farmbot_interfaces-main /workspaces/ws/src/agrorob_packages/farmbot_interfaces-main
+COPY ./ublox_ubx_msgs /workspaces/ws/src/agrorob_packages/ublox_ubx_msgs 
+
+WORKDIR /workspaces/ws
+RUN rosdep install --from-paths src -y --ignore-src
+RUN . /opt/ros/humble/setup.sh && colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release --symlink-install
+
+# Zenoh
 # [2.2]: Copy the built binary from the builder stage
 COPY --from=builder /usr/local/bin/zenohd /usr/local/bin/zenohd
 

@@ -1,0 +1,18 @@
+# Goal
+std_msgs/Bool start
+std_msgs/Float32 reaction
+---
+# Result
+std_msgs/Bool finish
+---
+#Feedback
+std_msgs/Bool obstacle
+std_msgs/Int8 type
+std_msgs/Bool detected_before
+std_msgs/Float32 distance
+std_msgs/Bool has_size
+std_msgs/Float32MultiArray size
+std_msgs/Bool has_position
+geometry_msgs/Pose loc_position
+sensor_msgs/NavSatFix geo_position 
+geometry_msgs/Pose robot

@@ -1,0 +1,5 @@
+sensor_msgs/NavSatFix gps
+sensor_msgs/NavSatFix datum
+---
+string message
+geometry_msgs/Pose enu

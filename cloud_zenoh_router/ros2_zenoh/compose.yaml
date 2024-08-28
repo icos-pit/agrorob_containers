@@ -4,10 +4,10 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 8447:7447 # HOST: 8447 ZENOH: 7447
-      - 8000:8000 # REST
+      - 8448:7447 # HOST: 8447 ZENOH: 7447
+      - 8001:8000 # REST
       - 8080:8080 # WEBSOCKET ROS-FLUTTER
-    restart: always
+    # restart: always
     volumes:
       - ./config.json5:/zenoh/CUSTOM_CONFIG.json5:ro
       - ./entrypoint.sh:/entrypoint.sh:ro

@@ -1,0 +1,12 @@
+# Goal
+nav_msgs/Path initial_path
+std_msgs/Bool abort
+---
+# Result
+std_msgs/Empty plan_result
+---
+#Feedback
+int16 wp_reached
+float32 speed
+float32  longitude
+float32  latitude

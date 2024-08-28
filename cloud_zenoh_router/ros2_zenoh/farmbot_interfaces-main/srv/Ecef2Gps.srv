@@ -1,0 +1,4 @@
+geometry_msgs/Pose ecef
+---
+string message
+sensor_msgs/NavSatFix gps
