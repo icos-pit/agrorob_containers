@@ -1,0 +1,8 @@
+std_msgs/Float32MultiArray size
+std_msgs/Float32MultiArray translation
+std_msgs/Float32MultiArray rotation
+std_msgs/Float32MultiArray color
+std_msgs/Bool recognition
+std_msgs/String name
+---
+string message
