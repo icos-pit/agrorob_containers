@@ -125,3 +125,9 @@ COPY --from=builder /zenoh/target/release/libzenoh_plugin_rest.so /zenoh/target/
 # ROS 2 DDS plugin
 COPY --from=builder /zenoh-plugin-ros2dds/target/release/libzenoh_plugin_ros2dds.so /zenoh-plugin-ros2dds/target/release/libzenoh_plugin_ros2dds.so
 
+# CONFIG
+COPY ./config.json5 /zenoh/CUSTOM_CONFIG.json5
+
+# ENTRYPOINT
+COPY ./entrypoint.sh /entrypoint.sh
+ENTRYPOINT [ "bash", "/entrypoint.sh" ]
