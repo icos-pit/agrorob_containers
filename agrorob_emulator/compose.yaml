@@ -1,18 +1,20 @@
+version: "3.3"
 services:
-  robot:
-    image: registry.paas.psnc.pl/icos/agrorob_emu:latest # from registry
-    # build: . # from source
-    # network_mode: "host"
-  zenoh-bridge:
-    image: "eclipse/zenoh-bridge-ros2dds:main"
+  agrorob_emulator:
+    build: .
+    network_mode: "host"
+    volumes:
+      - ./r_entrypoint.sh:/r_entrypoint.sh:ro
+    entrypoint: /r_entrypoint.sh 
+  zenoh-bridge-dds:
+    image: "eclipse/zenoh-bridge-dds:main"
     ports: 
         - 7447:7447
         - 8000:8000
     volumes:
-      - ./data:/root/.zenoh-bridge-ros2dds # empty volume
-      - ./entrypoint.sh:/entrypoint.sh:ro # zenoh bridge entrypoint file
-      - ./config.json5:/config.json5:ro # zenoh bridge configuration file
+      - ./data:/root/.zenoh-bridge-dds
+      - ./entrypoint.sh:/entrypoint.sh:ro
     network_mode: "host"
     env_file:
-      - ./environment.env # env variables
+      - ./environment.env
     entrypoint: /entrypoint.sh 
