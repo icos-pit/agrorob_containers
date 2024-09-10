@@ -1,8 +1,8 @@
 FROM osrf/ros:humble-desktop
 
 WORKDIR /workspaces
-# install ros package
 
+# install ros package
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     ros-humble-rtcm-msgs \
@@ -30,20 +30,27 @@ RUN apt-get update && \
 RUN mkdir -p ws/src
 WORKDIR /workspaces/ws/src
 
-RUN git clone https://github.com/icos-pit/agrorob_packages \
-    && cd agrorob_packages \
-    && git submodule init \
-    && git submodule update
+# copy packages
+COPY ./src/agrorob_msgs-main /workspaces/ws/src/agrorob_packages/agrorob_msgs-main
+COPY ./src/farmbot_interfaces-main /workspaces/ws/src/agrorob_packages/farmbot_interfaces-main
+COPY ./src/ublox_ubx_msgs /workspaces/ws/src/agrorob_packages/ublox_ubx_msgs 
 
 WORKDIR /workspaces/ws
+
+# install packages
 RUN rosdep install --from-paths src -y --ignore-src
 RUN . /opt/ros/humble/setup.sh && colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release --symlink-install
 
-RUN git clone https://github.com/icos-pit/agrorob_server 
+# copy agrorob server
+COPY ./src/agrorob_server /workspaces/ws/agrorob_server
 
 RUN echo "source /workspaces/ws/install/setup.bash" >> ~/.bashrc
-
 RUN echo 'source "/workspaces/ws/install/setup.bash" --' >> /ros_entrypoint.sh
 RUN echo 'exec "$@"' >> /ros_entrypoint.sh
 RUN echo 'source "/workspaces/ws/install/local_setup.bash" --' >> /ros_entrypoint.sh
 RUN echo 'exec "$@"' >> /ros_entrypoint.sh
+
+# entrypoint file
+COPY ./r_entrypoint.sh /r_entrypoint.sh
+ENTRYPOINT [ "bash", "/r_entrypoint.sh" ]
+
